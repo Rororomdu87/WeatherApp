@@ -25,68 +25,75 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AssetManager am = getAssets();
-        InputStream is = null;
-        BufferedReader reader = null;
-        String contents = "";
+        String s = getVilles();
 
+        Gson gson = new Gson();
+        ArrayList<City> cities= new ArrayList<>();
+        Type type = new TypeToken<ArrayList<City>>(){}.getType();
+        cities = gson.fromJson(s,type);
+        for (City city:cities) {
+            Log.i("city",city.toString());
+        }
+
+        //recyclerview
+
+        // Création de l'Adapter avec pour paramètre la liste des Cities (passage par référence !!!) et un Listener pour gérer le clic
+        final RecyclerView.Adapter<CityHolder> adapter = new CityAdapter(cities, new CityAdapter.OnCityListener() {
+            @Override
+            public void onCityClick(City city) {
+                // Action lors du clic sur un item de la liste
+                Toast.makeText(MainActivity.this, city.getName() + " " + city.getCountry() /*+ " " + city.getCoord()*/, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Récupération du recyclerView
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        // Affectation du LayoutManager
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        // Affectation de l'Adapter
+        recyclerView.setAdapter(adapter);
+
+        //Fin recyclerView
+    }
+
+    public String getVilles() {
+        String s = "";
+        AssetManager assetManager = getAssets();
         try {
-            is = am.open("test.json");
-            reader = new BufferedReader(new InputStreamReader(is));
-            contents = reader.readLine();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                contents += line;
-            }
+            InputStream inputStream = assetManager.open("city_france.json");
+            if (inputStream != null) {
+                BufferedReader br = null;
+                StringBuilder sb = new StringBuilder();
 
-            Log.e("content", contents);
-            Type collectionType = new TypeToken<ArrayList<City>>(){}.getType();
+                String line;
+                try {
 
-            Gson gson=new Gson();
-            ArrayList<City> cities = gson.fromJson(contents, collectionType);
-            for(City c:cities) {
-                Log.e("ville : ",c.toString());
-            }
+                    br = new BufferedReader(new InputStreamReader(inputStream));
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
 
-            //recyclerview
-
-            // Création de l'Adapter avec pour paramètre la liste des Cities (passage par référence !!!) et un Listener pour gérer le clic
-            final RecyclerView.Adapter<CityHolder> adapter = new CityAdapter(cities, new CityAdapter.OnCityListener() {
-                @Override
-                public void onCityClick(City city) {
-                    // Action lors du clic sur un item de la liste
-                    Toast.makeText(MainActivity.this, city.getName() + " " + city.getCountry() /*+ " " + city.getCoord()*/, Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (br != null) {
+                        try {
+                            br.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
-            });
-
-            // Récupération du recyclerView
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-            // Affectation du LayoutManager
-            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-            // Affectation de l'Adapter
-            recyclerView.setAdapter(adapter);
-
-            //Fin recyclerView
-
+                s = sb.toString();
+                Log.i("ville", s);
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally { //fermeture du fichier
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException ignored) {
-                }
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException ignored) {
-                }
-            }
         }
+        return s;
     }
 }
 
