@@ -1,10 +1,13 @@
 package com.example.romain.weatherapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Romain on 17/03/2017.
  */
 
-public class City {
+public class City implements Parcelable{
 
     private int _id;
     private String name;
@@ -17,6 +20,25 @@ public class City {
         this.country = country;
         coord = new Coord(lon, lat);
     }
+
+    protected City(Parcel in) {
+        _id = in.readInt();
+        name = in.readString();
+        country = in.readString();
+        coord = in.readParcelable(Coord.class.getClassLoader());
+    }
+
+    public static final Creator<City> CREATOR = new Creator<City>() {
+        @Override
+        public City createFromParcel(Parcel in) {
+            return new City(in);
+        }
+
+        @Override
+        public City[] newArray(int size) {
+            return new City[size];
+        }
+    };
 
     public int get_id() {
         return _id;
@@ -42,6 +64,19 @@ public class City {
                 ", country='" + country + '\'' +
                 ", coord=" + coord +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(_id);
+        dest.writeString(name);
+        dest.writeString(country);
+        dest.writeParcelable(coord, flags);
     }
 }
 

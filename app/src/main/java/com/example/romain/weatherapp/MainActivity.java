@@ -1,7 +1,9 @@
 package com.example.romain.weatherapp;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<City> cities= new ArrayList<>();
         Type type = new TypeToken<ArrayList<City>>(){}.getType();
         cities = gson.fromJson(s,type);
-        for (City city:cities) {
+        /*for (City city:cities) {
             Log.i("city",city.toString());
-        }
+        }*/
 
         //recyclerview
 
@@ -42,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCityClick(City city) {
                 // Action lors du clic sur un item de la liste
-                Toast.makeText(MainActivity.this, city.getName() + " " + city.getCountry() /*+ " " + city.getCoord()*/, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this,ActivityInfosVilles.class);
+                intent.putExtra("CITY", (Parcelable) city);
+                startActivity(intent);
             }
         });
 
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 s = sb.toString();
-                Log.i("ville", s);
+                /*Log.i("ville", s);*/
             }
         } catch (IOException e) {
             e.printStackTrace();
