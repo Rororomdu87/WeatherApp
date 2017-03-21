@@ -23,8 +23,8 @@ public class CityHolder extends RecyclerView.ViewHolder{
 
         view = itemView;
         nomView = (TextView) view.findViewById(R.id.name);
-        /*countryView = (TextView) view.findViewById(R.id.country);
-        latView = (TextView) view.findViewById(R.id.coord);
+        countryView = (TextView) view.findViewById(R.id.country);
+        /*latView = (TextView) view.findViewById(R.id.coord);
         longView = (TextView) view.findViewById(R.id.coord);*/
     }
 
@@ -34,8 +34,8 @@ public class CityHolder extends RecyclerView.ViewHolder{
 
         // Modification des champs
         nomView.setText(city.getName());
-        /*countryView.setText(city.getCountry());
-        latView.setText(String.valueOf(city.getCoord().getLat()));
+        countryView.setText(city.getCountry());
+        /*latView.setText(String.valueOf(city.getCoord().getLat()));
         longView.setText(String.valueOf(city.getCoord().getLon()));*/
 
         // Affectation du listener

@@ -8,11 +8,34 @@
     tools:context="com.example.romain.weatherapp.ActivityInfosVilles"
     tools:showIn="@layout/activity_infos_villes">
 
-    <TextView
-        android:id="@+id/infosVille"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="infosVille" />
+        android:orientation="vertical"
+        android:layout_margin="16dp">
 
+        <TextView
+            android:id="@+id/nomVille"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ville" />
+
+        <TextView
+            android:id="@+id/paysVille"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pays" />
+
+        <TextView
+            android:id="@+id/latVille"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Latitude" />
+
+        <TextView
+            android:id="@+id/lonVille"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Longitude" />
+    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

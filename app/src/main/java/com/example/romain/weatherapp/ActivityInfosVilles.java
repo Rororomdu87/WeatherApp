@@ -11,10 +11,11 @@ import android.widget.TextView;
 
 public class ActivityInfosVilles extends AppCompatActivity {
 
+    private static String API_KEY = "e6fb900e3feb77b61e5b8fbe065f8b1d";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Informations");
         setContentView(R.layout.activity_infos_villes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -31,8 +32,14 @@ public class ActivityInfosVilles extends AppCompatActivity {
         Intent intent = getIntent();
         City city = intent.getParcelableExtra("CITY");
 
-        TextView nomVille = (TextView) findViewById(R.id.infosVille);
-        nomVille.setText(city.getName()+'\n');
-        nomVille.append(city.getCountry()+'\n');
+        setTitle(city.getName());
+        TextView nomVille = (TextView) findViewById(R.id.nomVille);
+        TextView paysVille = (TextView) findViewById(R.id.paysVille);
+        TextView latVille = (TextView) findViewById(R.id.latVille);
+        TextView lonVille = (TextView) findViewById(R.id.lonVille);
+        nomVille.setText("Ville : " + city.getName());
+        paysVille.setText("Pays : " + city.getCountry());
+        latVille.setText("Latitude : " + city.getCoord().getLat());
+        lonVille.setText("Longitude : " + city.getCoord().getLon());
     }
 }
