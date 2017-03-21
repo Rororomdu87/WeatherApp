@@ -6,8 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 
 public class ActivityInfosVilles extends AppCompatActivity {
 
+    private static String TAG = "Weather";
     private static String API_KEY = "e6fb900e3feb77b61e5b8fbe065f8b1d";
 
     @Override
@@ -53,23 +56,23 @@ public class ActivityInfosVilles extends AppCompatActivity {
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://api.openweathermap.org/data/2.5/weather?id=" + city.get_id() + "&appid=" + API_KEY;
+        String url ="http://api.openweathermap.org/data/2.5/weather?id=" + city.get_id() + "&appid=" + API_KEY + "&units=metric";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
+        GsonRequest<CityWeather> request = new GsonRequest<>(url, CityWeather.class, null,
+                new Response.Listener<CityWeather>() {
                     @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        mTextView.setText("Response is: "+ response.substring(0,500));
+                    public void onResponse(CityWeather response) {
+                        Log.e(TAG, response.toString());
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                mTextView.setText("That didn't work!");
+                Toast.makeText(ActivityInfosVilles.this, "Erreur", Toast.LENGTH_LONG).show();
             }
         });
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
+
+        // Add the request to the RequestQueue.
+        queue.add(request);
     }
 }
