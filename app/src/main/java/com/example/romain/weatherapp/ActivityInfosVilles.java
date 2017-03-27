@@ -60,9 +60,9 @@ public class ActivityInfosVilles extends AppCompatActivity {
 
         // Request a string response from the provided URL.
         GsonRequest<CityWeather> request = new GsonRequest<>(url, CityWeather.class, null,
-                new Response.Listener<CityWeather>() {
-                    @Override
-                    public void onResponse(CityWeather response) {
+                        new Response.Listener<CityWeather>() {
+                            @Override
+                            public void onResponse(CityWeather response) {
                         Log.e(TAG, response.toString());
                     }
                 }, new Response.ErrorListener() {

@@ -1,8 +1,10 @@
 package com.example.romain.weatherapp;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
@@ -12,11 +14,20 @@ import java.lang.reflect.Type;
  */
 
 class CityWeather implements JsonDeserializer<CityWeather>{
+    private String description;
+    private String main;
+    private String icon;
     private int temp;
     private int pressure;
     private int humidity;
     private int temp_min;
     private int temp_max;
+
+    public void setDescription(String description) { this.description = description; }
+
+    public void setMain(String main) { this.main = main; }
+
+    public void setIcon(String icon) { this.icon = icon; }
 
     public void setTemp(int temp) {
         this.temp = temp;
@@ -38,10 +49,13 @@ class CityWeather implements JsonDeserializer<CityWeather>{
         this.temp_max = temp_max;
     }
 
-    public int getTemp() {
+    public String getDescription() { return description; }
 
-        return temp;
-    }
+    public String getMain() { return main; }
+
+    public String getIcon() { return icon; }
+
+    public int getTemp() { return temp; }
 
     public int getPressure() {
         return pressure;
@@ -61,6 +75,24 @@ class CityWeather implements JsonDeserializer<CityWeather>{
 
     @Override
     public CityWeather deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return null;
+        CityWeather weather = new CityWeather();
+        JsonObject jsonObject = json.getAsJsonObject();
+
+        JsonArray weatherArray = jsonObject.get("weather").getAsJsonArray();
+        JsonObject weatherObject = weatherArray.get(0).getAsJsonObject();
+
+        weather.setDescription(weatherObject.get("description").getAsString());
+        weather.setMain(weatherObject.get("main").getAsString());
+        weather.setIcon(weatherObject.get("icon").getAsString());
+
+        JsonObject weathermainObject = jsonObject.get("main").getAsJsonObject();
+
+        weather.setTemp(weathermainObject.get("temp").getAsInt());
+        weather.setPressure(weathermainObject.get("pressure").getAsInt());
+        weather.setHumidity(weathermainObject.get("humidity").getAsInt());
+        weather.setTemp_min(weathermainObject.get("temp_min").getAsInt());
+        weather.setTemp_max(weathermainObject.get("temp_max").getAsInt());
+
+        return weather;
     }
 }
