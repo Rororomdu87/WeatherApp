@@ -21,7 +21,8 @@
         <activity
             android:name=".ActivityInfosVilles"
             android:label="@string/title_activity_infos_villes"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Favoris_Activity"></activity>
     </application>
 
 </manifest>

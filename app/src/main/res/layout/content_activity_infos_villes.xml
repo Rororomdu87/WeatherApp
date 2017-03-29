@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.romain.weatherapp.ActivityInfosVilles"
     tools:showIn="@layout/activity_infos_villes">
@@ -11,31 +12,83 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/weatherIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:text="Température"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/nomVille"
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ville" />
+            android:text="main"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
         <TextView
-            android:id="@+id/paysVille"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pays" />
+            android:text="TextView"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
         <TextView
-            android:id="@+id/latVille"
+            android:id="@+id/temp_min"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Latitude" />
+            android:text="Température minimale"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
         <TextView
-            android:id="@+id/lonVille"
+            android:id="@+id/temp_max"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Longitude" />
+            android:text="Température maximale"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+        <TextView
+            android:id="@+id/humidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Humidité"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+        <TextView
+            android:id="@+id/pressure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pression atmosphérique"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+        <TextView
+            android:id="@+id/wind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vitesse du vent"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
 
     <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="nom"
-        android:layout_width="match_parent"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+    <Space
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/name" />
+        android:layout_weight="1" />
 
     <TextView
-        android:text="pays"
-        android:layout_width="match_parent"
+        android:id="@+id/country"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/country" />
+        android:text="pays"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 </LinearLayout>
