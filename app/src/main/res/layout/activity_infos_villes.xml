@@ -43,7 +43,7 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
         app:rippleColor="@android:color/holo_blue_bright"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@drawable/ic_star_border_black_24dp" />
 
     <include layout="@layout/content_activity_infos_villes" />
 

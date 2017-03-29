@@ -78,5 +78,20 @@ public class City implements Parcelable{
         dest.writeString(country);
         dest.writeParcelable(coord, flags);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        City city = (City) o;
+
+        return _id == city._id;
+    }
+
+    @Override
+    public int hashCode() {
+        return _id;
+    }
 }
 

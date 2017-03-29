@@ -2,6 +2,7 @@ package com.example.romain.weatherapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,13 +38,26 @@ public class ActivityInfosVilles extends AppCompatActivity {
         final City city = intent.getParcelableExtra("CITY");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if(favoris.contains(city)){
+            //fab.setBackground(R.drawable.ic_star_black_24dp);
+        }
+        else{
+            //fab.setBackground(R.drawable.ic_star_border_black_24dp);
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Vous avez ajouté " + city.getName() + " aux favoris", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                favoris.add(city);
-                Log.e("Favoris : ",favoris.toString());
+                if(favoris.contains(city)) {
+                    favoris.remove(city);
+                    Snackbar.make(view, "Vous avez retiré " + city.getName() + " des favoris", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else{
+                    favoris.add(city);
+                    Log.e("Favoris : ", favoris.toString());
+                    Snackbar.make(view, "Vous avez ajouté " + city.getName() + " aux favoris", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
