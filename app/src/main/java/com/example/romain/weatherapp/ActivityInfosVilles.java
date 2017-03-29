@@ -16,7 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ActivityInfosVilles extends AppCompatActivity {
@@ -24,6 +24,7 @@ public class ActivityInfosVilles extends AppCompatActivity {
     public static ArrayList favoris = new ArrayList<City>();
     private static String TAG = "Weather";
     private static String API_KEY = "e6fb900e3feb77b61e5b8fbe065f8b1d";
+    private static DecimalFormat df = new DecimalFormat("#.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class ActivityInfosVilles extends AppCompatActivity {
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://api.openweathermap.org/data/2.5/weather?id=" + city.get_id() + "&appid=" + API_KEY + "&units=metric";
+        String url ="http://api.openweathermap.org/data/2.5/weather?id=" + city.get_id() + "&appid=" + API_KEY + "&units=metric&lang=fr";
         Log.i("URL : ",url);
 
         // Request a string response from the provided URL.
@@ -66,8 +67,8 @@ public class ActivityInfosVilles extends AppCompatActivity {
                         TextView temp_max = (TextView) findViewById(R.id.temp_max);
                         TextView humidity = (TextView) findViewById(R.id.humidity);
                         TextView pressure = (TextView) findViewById(R.id.pressure);
-                        ImageView imageView = (ImageView) findViewById(R.id.weatherIcon);
-                        //Glide.with(this).load("http://openweathermap.org/img/w/" + response.getIcon() + ".png").into(imageView);
+                        ImageView weatherIcon = (ImageView) findViewById(R.id.weatherIcon);
+                        Glide.with(ActivityInfosVilles.this).load("http://openweathermap.org/img/w/" + response.getIcon() + ".png").into(weatherIcon);
                         TextView wind = (TextView) findViewById(R.id.wind);
                         temp.setText(response.getTemp() + "°C");
                         main.setText("Main : " + response.getMain());
@@ -76,7 +77,7 @@ public class ActivityInfosVilles extends AppCompatActivity {
                         temp_max.setText("Température maximale : " + response.getTemp_max() + "°C");
                         humidity.setText("Humidité : " + response.getHumidity() + "%");
                         pressure.setText("Pression atmosphérique : " + response.getPressure() + " hPa");
-                        wind.setText("Vitesse du vent : " + response.getWind()*3.6 + " Km/h");
+                        wind.setText("Vitesse du vent : " + df.format(response.getWind()*3.6) + " Km/h");
                     }
             }, new Response.ErrorListener() {
             @Override
